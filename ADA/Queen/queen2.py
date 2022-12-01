@@ -72,7 +72,7 @@ def checkThisSol(solution,chessbox=emptyBox()):
                 chessbox[f'{i}[{col}]']=False
             
         else:
-            result= False
+            result= False#break loop here
     return result
 
 

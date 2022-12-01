@@ -40,7 +40,7 @@ all_inputs=[
     [['T','W',6],['U','W',5],['V','W',8]]
     ]}
     ]
-inputs=all_inputs[2]
+inputs=all_inputs[0]
 SCALE_BY=0.5
 NODE_SIZE=int(100*SCALE_BY)
 X_DIFF=int(200*SCALE_BY)
@@ -203,6 +203,8 @@ def get_image(solutions,show_all=False):
             X_POS=0
             Y_POS+=IMAGE_HEIGHT*1.5
         optimal=optimal_solutions[i]
+        
+        print(f'Optimal Solution: Cost={optimal.cost}, Edges={[i.name for i in optimal.solution_edges]}, Nodes={[i.name for i in optimal.solution_edges]}')
         solution_edges=optimal.solution_edges
         draw.text((X_POS+ X_SIZE//5,Y_DIFF//1.5+Y_POS), str(f'Optimal Solution, Cost={optimal.cost}'), (255,255,255) ,font=ImageFont.truetype("arial.ttf", NODE_SIZE//3))
         for stage in Stages:
@@ -267,15 +269,14 @@ def solution_recur(stage,nodes,edges,cost):
             nodes.append(edge.node2)
             solution_recur(stage+1,nodes,edges,cost+edge.weight)
 solution_recur(0,[],[],0)
-print(len(solutions))
-for solution in solutions:
-    print('Cost= ',solution.cost,end=',')
-    print(' Edges= ',end='')
-    for i in solution.solution_edges:
-        print(i.name,end=',')
-    print(' Nodes= ',end='')
-    for i in solution.solution_nodes:
-        print(i.name,end=',')
-    print()
-print(len(solutions))
-get_image(solutions,True).save('multistage_graph/graph.png')
+# for solution in solutions:
+#     print('Cost= ',solution.cost,end=',')
+#     print(' Edges= ',end='')
+#     for i in solution.solution_edges:
+#         print(i.name,end=',')
+#     print(' Nodes= ',end='')
+#     for i in solution.solution_nodes:
+#         print(i.name,end=',')
+#     print()
+# print(len(solutions))
+get_image(solutions,False).show()#.save('multistage_graph/graph.png')
